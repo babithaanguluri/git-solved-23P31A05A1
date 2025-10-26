@@ -1,35 +1,25 @@
 /**
-
- * System Monitoring Script - Production
- * Monitors application health and performance
+ * System Monitoring Script - Development
+ * Enhanced monitoring with debug features
  */
-const ENV = process.env.NODE_ENV || 'production';
+
 const monitorConfig = {
-  production: {
-      interval: 60000, // 1 minute
-      alertThreshold: 80,
-      metricsEndpoint: 'http://localhost:8080/metrics',
-      debugMode: false
-  },
-  development:{
-      interval: 5000, // 1 minute
-      alertThreshold: 90,
-      metricsEndpoint: 'http://localhost:3000/metrics',
-      debugMode: true,
-      verboseLogging: true
-  }
+  interval: 5000, // 5 seconds (faster for development)
+  alertThreshold: 90,
+  metricsEndpoint: 'http://localhost:3000/metrics',
+  debugMode: true,
+  verboseLogging: true
 };
-const Config = monitorConfig[ENV];
+
 console.log('=================================');
-console.log(`DevOps Simulator - Monitor`);
-console.log('=================================');
-console.log(`Debug: ${Config.debugMode ? 'ENABLED' : 'DISABLED'}`);
+console.log('DevOps Simulator - Monitor v2.0-beta');
+console.log('Development Mode: ENABLED');
 console.log('=================================');
 
 function checkSystemHealth() {
   const timestamp = new Date().toISOString();
   
-  if (Config.debugMode) {
+  if (monitorConfig.debugMode) {
     console.log(`\n[${timestamp}] === DETAILED HEALTH CHECK ===`);
   } else {
     console.log(`[${timestamp}] Checking system health...`);
@@ -48,7 +38,7 @@ function checkSystemHealth() {
   console.log(`✓ Disk space: ${diskUsage.toFixed(2)}% used`);
   
   // Development-specific checks
-  if (Config.debugMode) {
+  if (monitorConfig.debugMode) {
     console.log('✓ Hot reload: Active');
     console.log('✓ Debug port: 9229');
     console.log('✓ Source maps: Enabled');
@@ -56,28 +46,27 @@ function checkSystemHealth() {
   
   // Status determination
   const maxUsage = Math.max(cpuUsage, memUsage, diskUsage);
-  if (maxUsage > Config.alertThreshold) {
+  if (maxUsage > monitorConfig.alertThreshold) {
     console.log('⚠️  System Status: WARNING - High resource usage');
   } else {
     console.log('✅ System Status: HEALTHY');
   }
   
-  if (Config.verboseLogging) {
-    console.log(`Next check in ${Config.interval}ms`);
+  if (monitorConfig.verboseLogging) {
+    console.log(`Next check in ${monitorConfig.interval}ms`);
   }
-
 }
 
 // Start monitoring
-console.log(`Monitoring every ${Config.interval}ms`);
+console.log(`Monitoring every ${monitorConfig.interval}ms`);
+console.log('Debug features enabled');
+setInterval(checkSystemHealth, monitorConfig.interval);
 
-setInterval(checkSystemHealth, Config.interval);
-
+// Run first check immediately
 checkSystemHealth();
 
-
 // Development-specific: Log memory usage
-if (Config.debugMode) {
+if (monitorConfig.debugMode) {
   setInterval(() => {
     const memUsage = process.memoryUsage();
     console.log('\n--- Memory Usage ---');
@@ -85,4 +74,3 @@ if (Config.debugMode) {
     console.log(`Heap Used: ${(memUsage.heapUsed / 1024 / 1024).toFixed(2)} MB`);
   }, 30000);
 }
-
