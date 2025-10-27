@@ -16,7 +16,6 @@ A comprehensive CI/CD configuration management tool for enterprise deployments.
 - 🔐 OAuth2 authentication
 - 🐳 Docker Compose integration
 
-
 ## Features
 ### Core Features
 - Automated deployment scripts
@@ -29,6 +28,7 @@ A comprehensive CI/CD configuration management tool for enterprise deployments.
 - Auto-scaling
 - Load balancer integration 
 - Scheduled backups
+
 ### Development Features
 - Docker Compose integration
 - Hot reload enabled
@@ -38,39 +38,13 @@ A comprehensive CI/CD configuration management tool for enterprise deployments.
 
 ## Quick Start
 ### Development Mode
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Configure environment variables
-4. Run in development mode: `npm run dev`
-5. Access dashboard at http://localhost:3000
+1. Clone the repository  
+2. Install dependencies: `npm install`  
+3. Configure environment variables  
+4. Run in development mode: `npm run dev`  
+5. Access dashboard at [http://localhost:3000](http://localhost:3000)
+
 ### Production Mode
 ```bash
 export DEPLOY_ENV=production
 ./scripts/deploy.sh
-```
-## Development Setup
-```bash
-# Install dependencies
-npm install
-
-# Run tests
-npm test
-
-# Start development server
-npm run dev
-```
-
-
-## Documentation
-See `/docs` folder for detailed documentation.
-
-
-## License
-MIT License
-
-## Contributing
-Please read CONTRIBUTING.md before submitting pull requests.
-
-## License
-MIT License
-
